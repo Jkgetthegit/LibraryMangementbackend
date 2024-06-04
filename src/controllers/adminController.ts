@@ -76,7 +76,9 @@ export const showbook = async (req: Request, res: Response) => {
 export const getUserBooks = async (req: Request, res: Response) => {
   const userBookRepo = AppDataSource.getRepository(UserBook);
     try {
-      const userBooks = await userBookRepo.find();
+      const userBooks = await userBookRepo.find({
+        relations : ['username','bookname']
+      });
       return res.status(200).json(userBooks);
     } catch (error) {
       console.error(error);
